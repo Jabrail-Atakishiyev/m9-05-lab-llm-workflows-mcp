@@ -1,0 +1,41 @@
+============================================================
+TURN 1
+============================================================
+User: What did order A1001 cost?
+
+  [step 1] calling model ...
+  [step 1] tool call -> lookup_order(order_id=A1001)
+  [step 1] tool result <- order_id=A1001, item=laptop, price=1200, purchased=2026-05-20, warranty_months=12
+
+  [step 2] calling model ...
+
+Assistant: Order A1001 is a laptop that cost $1,200.
+
+[memory now holds 4 message(s)]
+
+============================================================
+TURN 2  (memory test -- three of them refers to turn 1)
+============================================================
+User: And what about three of them?
+
+  [step 1] calling model ...
+  [step 1] tool call -> calculate(expression=1200 * 3)
+  [step 1] tool result <- expression=1200 * 3, result=3600
+
+  [step 2] calling model ...
+
+Assistant: Three laptops (order A1001) would cost $3,600 in total.
+
+[memory now holds 8 message(s)]
+
+============================================================
+MEMORY DUMP  (all messages in context)
+============================================================
+  [0] USER: What did order A1001 cost?
+  [1] MODEL -> tool_call: lookup_order(order_id=A1001)
+  [2] USER <- tool_result (lookup_order): order_id=A1001, item=laptop, price=1200
+  [3] MODEL: Order A1001 is a laptop that cost $1,200.
+  [4] USER: And what about three of them?
+  [5] MODEL -> tool_call: calculate(expression=1200 * 3)
+  [6] USER <- tool_result (calculate): expression=1200 * 3, result=3600
+  [7] MODEL: Three laptops (order A1001) would cost $3,600 in total.
